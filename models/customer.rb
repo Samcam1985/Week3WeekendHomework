@@ -17,4 +17,22 @@ def save()
   customer = SqlRunner.run(sql).first
   @id = customer['id'].to_i
 end
+
+def Customer.all()
+  sql = "SELECT * FROM customers"
+  return Customer.map_items(sql)
+end
+
+
+def Customer.delete_all() 
+  sql = "DELETE FROM customers"
+  SqlRunner.run(sql)
+end
+
+def update()
+  sql = "UPDATE customer SET (name, funds) = ('#{@name}' #{funds}') WHERE id = #{id}"
+  customers = SqlRunner.run(sql)
+  return customers.map{|customer| Customer.new(customer)} 
+end
+
 end
